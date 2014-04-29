@@ -12,17 +12,20 @@ module HTTPI
         @request = request
         @pubkey_path  = request.auth.ssl.cert_file
         @privkey_path = request.auth.ssl.cert_key_file
+        @cacert_path = request.auth.ssl.ca_cert_file
       end
 
       attr_reader :client
       attr_accessor :pubkey_path
       attr_accessor :privkey_path
+      attr_accessor :cacert_path
 
       def request(method)
         uri = @request.url
         cmd = "openssl s_client -engine gost -connect '#{uri.host}:#{uri.port}' -quiet"
-        cmd += " -cert '#{pubkey_path}'"  if pubkey_path
-        cmd += " -key '#{privkey_path}'"  if privkey_path
+        cmd += " -cert '#{pubkey_path}'"    if pubkey_path
+        cmd += " -key '#{privkey_path}'"    if privkey_path
+        cmd += " -CAfile '#{cacert_path}'"  if cacert_path
 
         # Prepare request
         req = "#{method.upcase} #{uri.request_uri} HTTP/1.1\r\n"

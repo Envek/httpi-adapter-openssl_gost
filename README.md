@@ -77,6 +77,8 @@ request.auth.ssl.cert_file     = '/full/path/to/client.crt'
 request.auth.ssl.cert_key_file = '/full/path/to/client.pem'
 ```
 
+Similarly, you can pass certificate authority certificate filepath to `ca_cert_file=` method. `openssl s_client` doesn't recognize system CA certificates automatically, this is a [known bug](https://bugs.launchpad.net/ubuntu/+source/openssl/+bug/396818) (please hit «This bug affects me» link there).
+
 ### Usage with savon
 
 You need to use custom branches of [savon] and [wasabi] until next pull requests are not merged in:
@@ -95,10 +97,11 @@ Specify `:adapter` in savon client global options:
 ```ruby
 require 'httpi/adapter/openssl_gost'
 soap_client = Savon.client(
-  wsdl:              'https://service-requiring-gost.ru/service?wsdl',
-  ssl_cert_file:     '/full/path/to/client.crt',
-  ssl_cert_key_file: '/full/path/to/client.pem',
-  adapter:           :openssl_gost,
+  wsdl:                 'https://service-requiring-gost.ru/service?wsdl',
+  ssl_cert_file:        '/full/path/to/client.crt',
+  ssl_cert_key_file:    '/full/path/to/client.pem',
+  ssl_ca_cert_key_file: '/full/path/to/ca.crt',
+  adapter:              :openssl_gost,
 )
 ```
 
