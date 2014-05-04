@@ -81,15 +81,10 @@ Similarly, you can pass certificate authority certificate filepath to `ca_cert_f
 
 ### Usage with savon
 
-You need to use custom branches of [savon] and [wasabi] until next pull requests are not merged in:
- 1. [savonrb/wasabi#44](https://github.com/savonrb/wasabi/issues/44)
- 2. [savonrb/savon#566](https://github.com/savonrb/savon/pull/566):
-
-Place in your Gemfile:
+You need to use [savon] version 2.5 or newer. Place in your Gemfile:
 
 ```ruby
-gem 'wasabi', github: 'Envek/wasabi', branch: 'specify_adapter'
-gem 'savon',  github: 'Envek/savon',  branch: 'specify_adapter'
+gem 'savon',  '~> 2.5'
 ```
 
 Specify `:adapter` in savon client global options:
@@ -97,11 +92,11 @@ Specify `:adapter` in savon client global options:
 ```ruby
 require 'httpi/adapter/openssl_gost'
 soap_client = Savon.client(
-  wsdl:                 'https://service-requiring-gost.ru/service?wsdl',
-  ssl_cert_file:        '/full/path/to/client.crt',
-  ssl_cert_key_file:    '/full/path/to/client.pem',
-  ssl_ca_cert_key_file: '/full/path/to/ca.crt',
-  adapter:              :openssl_gost,
+  wsdl:              'https://service-requiring-gost.ru/service?wsdl',
+  ssl_cert_file:     '/full/path/to/client.crt',
+  ssl_cert_key_file: '/full/path/to/client.pem',
+  ssl_ca_cert_file:  '/full/path/to/ca.crt',
+  adapter:           :openssl_gost,
 )
 ```
 
