@@ -4,8 +4,9 @@ OpenSSL GOST adapter for [HTTPI]
 This gem allows to perform HTTP requests over secure connections, that requires russian GOST cryptoalgorithms to be used.
 It allows to use client certificate and private key for authentication.
 
-**WARNING!** This gem is kind of «last chance software». It uses `openssl s_client` command to perform requests.
-As it's command for debug and testing purposes only, it's slow and unreliable. Use at your own risk only if nothing else is working for you (as it for me).
+**ATTENTION!** I strongly discourage you from using this gem!
+Instead of this you should patch Ruby with patches from https://bugs.ruby-lang.org/issues/9830 and use `Net::HTTPS` or [HTTPI] as usual.
+This gem uses `openssl s_client` command to perform requests. As this is command for debug and testing purposes only, it's slow and unreliable. Use at your own risk only if nothing else is working for you.
 
 ## Installation
 
